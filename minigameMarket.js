@@ -89,7 +89,7 @@ M.launch=function()
 				desc:'The folks at <b>Prosperity Hive</b> deal in honey, and it\'s always worked for them. With a work culture so relaxed you\'re almost tempted to ditch the cookie business and join them, these people have little in common with the proverbial busy bee - though their rates do sting quite a bit.',
 			},
 			'Fractal engine':{
-				name:'Cookies',
+				name:'cookies',
 				symbol:'CKI',
 				company:'Selfmade Bakeries',
 				desc:'Interesting. It appears there\'s still a company out there trying to sell cookies even with your stranglehold on the market. No matter - you figure <b>Selfmade Bakeries</b>\' largely inferior product will make decent fodder for the mouse traps in your factories.',
@@ -169,7 +169,7 @@ M.launch=function()
 					(overhead>1?('<div style="font-size:9px;opacity:0.6;">('+loc("+<b>%1%</b> overhead",Beautify((overhead-1)*100,2))+')</div>'):'')+
 					'<div class="line"></div>'+
 					'<div style="font-size:9px;opacity:0.6;font-weight:bold;">'+(buyOrSell?loc("you spend:"):loc("you earn:"))+'</div>'+
-					'<div><b class="hasTinyCookie '+(n<=0?'gray':(Game.cookies>=cost*n || !buyOrSell)?'green':'red')+'">'+Beautify(cost*n)+'</b></div>'+
+					'<div><b class="hasTinycookie '+(n<=0?'gray':(Game.cookies>=cost*n || !buyOrSell)?'green':'red')+'">'+Beautify(cost*n)+'</b></div>'+
 					(n>0?('<div style="font-size:9px;opacity:0.6;font-weight:bold;">($'+Beautify(val*overhead*n,2)+')</div>'+
 					'<div style="font-size:9px;opacity:0.6;font-weight:bold;">('+loc("%1 of CpS",Game.sayTime(val*overhead*n*Game.fps,-1))+')</div>'):'')+
 					(((me.last==1 && !buyOrSell) || (me.last==2 && buyOrSell))?'<div class="line"></div><div class="red">'+loc("You cannot buy and sell this stock in the same tick.")+'</div>':'')+
@@ -194,10 +194,11 @@ M.launch=function()
 		M.getGoodMaxStock=function(good)
 		{
 			var bonus=0;
-			if (M.officeLevel>0) bonus+=25;
-			if (M.officeLevel>1) bonus+=50;
-			if (M.officeLevel>2) bonus+=75;
-			if (M.officeLevel>3) bonus+=100;
+			if (M.officeLevel=0) bonus+=50
+			if (M.officeLevel>0) bonus+=100;
+			if (M.officeLevel>1) bonus+=150;
+			if (M.officeLevel>2) bonus+=200;
+			if (M.officeLevel>3) bonus+=300;
 			return Math.ceil(good.building.highest*(M.officeLevel>4?1.5:1)+bonus+good.building.level*10);
 		}
 		M.getGoodPrice=function(good)
@@ -289,11 +290,11 @@ M.launch=function()
 		
 		M.officeLevel=0;
 		M.offices=[
-			{name:loc("Credit garage"),icon:[0,33],cost:[100,2],desc:EN?"This is your starting office.":loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><b><!--&bull; '+loc("+1 opportunity slot")+'<br>-->&bull; '+loc("+%1 warehouse space for all goods",25)+'</b>'},
-			{name:loc("Tiny bank"),icon:[9,33],cost:[200,4],desc:loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><b>&bull; '+loc("+1 loan slot")+'<br>&bull; '+loc("+%1 warehouse space for all goods",50)+'</b>'},
-			{name:loc("Loaning company"),icon:[10,33],cost:[350,8],desc:loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><!--<b>&bull; '+loc("+1 opportunity slot")+'<br>-->&bull; '+loc("+%1 warehouse space for all goods",75)+'</b>'},
-			{name:loc("Finance headquarters"),icon:[11,33],cost:[500,10],desc:loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><b>&bull; '+loc("+1 loan slot")+'<br>&bull; '+loc("+%1 warehouse space for all goods",100)+'</b>'},
-			{name:loc("International exchange"),icon:[12,33],cost:[700,12],desc:loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><b>&bull; '+loc("+1 loan slot")+'<br><!--&bull; '+loc("+1 opportunity slot")+'<br>-->&bull; '+loc("+%1% base warehouse space for all goods",50)+'</b>'},
+			{name:loc("Credit garage"),icon:[0,33],cost:[100,1],desc:EN?"This is your starting office.":loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><b><!--&bull; '+loc("+1 opportunity slot")+'<br>-->&bull; '+loc("+%1 warehouse space for all goods",25)+'</b>'},
+			{name:loc("Tiny bank"),icon:[9,33],cost:[100,2],desc:loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><b>&bull; '+loc("+1 loan slot")+'<br>&bull; '+loc("+%1 warehouse space for all goods",50)+'</b>'},
+			{name:loc("Loaning company"),icon:[10,33],cost:[200,3],desc:loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><!--<b>&bull; '+loc("+1 opportunity slot")+'<br>-->&bull; '+loc("+%1 warehouse space for all goods",75)+'</b>'},
+			{name:loc("Finance headquarters"),icon:[11,33],cost:[350,4],desc:loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><b>&bull; '+loc("+1 loan slot")+'<br>&bull; '+loc("+%1 warehouse space for all goods",100)+'</b>'},
+			{name:loc("International exchange"),icon:[12,33],cost:[500,5],desc:loc("This is your office.")+'<br>'+loc("Upgrading will grant you:")+'<br><b>&bull; '+loc("+1 loan slot")+'<br><!--&bull; '+loc("+1 opportunity slot")+'<br>-->&bull; '+loc("+%1% base warehouse space for all goods",50)+'</b>'},
 			{name:loc("Palace of Greed"),icon:[18,33],cost:0,desc:loc("This is your office.")+'<br>'+loc("It is fully upgraded. Its lavish interiors, spanning across innumerable floors, are host to many a decadent party, owing to your nigh-unfathomable wealth.")},
 		];
 		
@@ -333,11 +334,11 @@ M.launch=function()
 					loc("A nice broker to trade more cookies.")+'<br>'+
 					'&bull; '+loc("Buying goods normally incurs overhead costs of <b>%1% extra</b>. Each broker you hire reduces that cost by <b>%2%</b>.",[20,5])+'<br>'+
 					'&bull; '+loc("Current overhead costs thanks to your brokers: <b>+%1%</b>",Beautify(20*Math.pow(0.95,M.brokers),2))+'<br>'+
-					'&bull; '+loc("Buying a broker costs %1 of CpS (that's $%2).",['<b class="hasTinyCookie '+(Game.cookies>=M.getBrokerPrice()?'green':'red')+'">'+loc("%1 minute",LBeautify(20))+'</b>',1200])+'<br>'+
+					'&bull; '+loc("Buying a broker costs %1 of CpS (that's $%2).",['<b class="hasTinycookie '+(Game.cookies>=M.getBrokerPrice()?'green':'red')+'">'+loc("%1 minute",LBeautify(20))+'</b>',1200])+'<br>'+
 					'&bull; '+loc("Maximum number of brokers you can own: %1 (the highest amount of grandmas you've owned this run, divided by 10, plus your grandma level)",'<b class="'+(M.brokers<M.getMaxBrokers()?'green':'red')+'">'+Beautify(M.getMaxBrokers())+'</b>')+'<br>'+
 					'<q>'+loc("Brokers are Wall Street-class grandmas versed in the ways of finance. Stockbroker grandmas work hard and play hard, and will fight telephone in hand to get your clients the best possible deals - with a sizeable profit margin for you, of course.")+'</q>'+
 					'<div class="line"></div><div style="font-size:11px;text-align:center;">'+
-						loc("Hiring a new broker will cost you %1.",'<b class="hasTinyCookie '+(Game.cookies>=M.getBrokerPrice()?'green':'red')+'">'+loc("%1 cookie",LBeautify(M.getBrokerPrice()))+'</b>')+
+						loc("Hiring a new broker will cost you %1.",'<b class="hasTinycookie '+(Game.cookies>=M.getBrokerPrice()?'green':'red')+'">'+loc("%1 cookie",LBeautify(M.getBrokerPrice()))+'</b>')+
 					'</div>'+
 				'</div>'+
 				'</div>';
@@ -360,7 +361,7 @@ M.launch=function()
 				'<div class="line"></div><div class="description" style="font-size:11px;">'+
 					loc("By taking this loan, you will get %1 CpS for the next %2.",['<b class="green">+'+Math.round((loan[1]-1)*100)+'%</b>','<b>'+Game.sayTime(60*loan[2]*Game.fps)+'</b>'])+'<br>'+
 					loc("However, you will get %1 CpS for the next %2 after that.",['<b class="red">'+Math.round((loan[3]-1)*100)+'%</b>','<b>'+Game.sayTime(60*loan[4]*Game.fps)+'</b>'])+
-					loc("You must also pay an immediate downpayment of %1 (<b>%2%</b> of your current bank).",['<b class="hasTinyCookie red">'+Beautify(Game.cookies*loan[5])+'</b>',(loan[5]*100)])+
+					loc("You must also pay an immediate downpayment of %1 (<b>%2%</b> of your current bank).",['<b class="hasTinycookie red">'+Beautify(Game.cookies*loan[5])+'</b>',(loan[5]*100)])+
 					'<q>'+loan[6]+'</q>'+
 				'</div>';
 				return str;
