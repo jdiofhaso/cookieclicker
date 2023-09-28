@@ -6830,9 +6830,9 @@ Game.Launch=function()
 				var pledgeStr=Game.sayTime(Game.pledgeT,-1);
 				var wrathStr='';
 				if (Game.elderWrath==1) wrathStr=loc("awoken");
-				else if (Game.elderWrath==2) wrathStr=loc("displeased");
-				else if (Game.elderWrath==3) wrathStr=loc("angered");
-				else if (Game.elderWrath==0 && Game.pledges>0) wrathStr=loc("appeased");
+				else if (Game.elderWrath==2) wrathStr=loc("angerd");
+				else if (Game.elderWrath==3) wrathStr=loc("pENIE MODE");
+				else if (Game.elderWrath==0 && Game.pledges>0) wrathStr=loc("happie");
 				
 				var dropMult=Game.dropRateMult();
 				
